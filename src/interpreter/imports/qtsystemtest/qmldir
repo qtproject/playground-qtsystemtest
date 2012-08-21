@@ -1,0 +1,11 @@
+plugin          qtsystemtest
+Application     1.0 qml/Application.qml
+Remote          1.0 qml/Remote.qml
+TestData        1.0 qml/TestData.qml
+TestItem        1.0 qml/TestItem.qml
+Test            1.0 qml/Test.qml
+TestCollection  1.0 qml/TestCollection.qml
+QstObject       1.0 qml/itemhandlers/QstObject.qml
+QstWidget       1.0 qml/itemhandlers/QstWidget.qml
+Js              1.0 qml/Js.qml
+Core            1.0 scripts/QstCore.js

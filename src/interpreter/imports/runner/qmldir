@@ -1,0 +1,7 @@
+plugin          qtsystemtestrunner
+Logger             1.0 qml/Logger.qml
+PlainTextLogger    1.0 qml/PlainTextLogger.qml
+XUnitLogger        1.0 qml/XUnitLogger.qml
+XmlLogger          1.0 qml/XmlLogger.qml
+Config             1.0 qml/Config.qml
+

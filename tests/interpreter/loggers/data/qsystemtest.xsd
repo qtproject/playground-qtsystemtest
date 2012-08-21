@@ -1,0 +1,228 @@
+/****************************************************************************
+**
+** Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).
+** Contact: http://www.qt-project.org/
+**
+** This file is part of QtSystemTest.
+**
+** $QT_BEGIN_LICENSE:LGPL$
+** GNU Lesser General Public License Usage
+** This file may be used under the terms of the GNU Lesser General Public
+** License version 2.1 as published by the Free Software Foundation and
+** appearing in the file LICENSE.LGPL included in the packaging of this
+** file. Please review the following information to ensure the GNU Lesser
+** General Public License version 2.1 requirements will be met:
+** http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+**
+** In addition, as a special exception, Nokia gives you certain additional
+** rights. These rights are described in the Nokia Qt LGPL Exception
+** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
+**
+** GNU General Public License Usage
+** Alternatively, this file may be used under the terms of the GNU General
+** Public License version 3.0 as published by the Free Software Foundation
+** and appearing in the file LICENSE.GPL included in the packaging of this
+** file. Please review the following information to ensure the GNU General
+** Public License version 3.0 requirements will be met:
+** http://www.gnu.org/copyleft/gpl.html.
+**
+** Other Usage
+** Alternatively, this file may be used in accordance with the terms and
+** conditions contained in a signed written agreement between you and Nokia.
+**
+**
+**
+**
+**
+**
+** $QT_END_LICENSE$
+**
+****************************************************************************/
+
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   elementFormDefault="qualified"
+   attributeFormDefault="unqualified">
+  <xs:annotation>
+    <xs:documentation xml:lang="en">QtSystemTest xml test result schema.
+    </xs:documentation>
+  </xs:annotation>
+  <xs:element name="systemtestrun">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Instance of running the test interpreter over a test file
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+       <xs:sequence>
+         <xs:element name="collection" type="collection"/>
+         <xs:element name="report">
+           <xs:complexType>
+             <xs:sequence>
+               <xs:element name="status" type="Status" minOccurs="0" maxOccurs="1"/>
+               <xs:element name="passed" type="xs:decimal"/>
+               <xs:element name="skipped" type="xs:decimal"/>
+               <xs:element name="untested" type="xs:decimal"/>
+               <xs:element name="failed" type="xs:decimal"/>
+               <xs:element name="error" type="xs:decimal"/>
+               <xs:element name="total" type="xs:decimal"/>
+               <xs:element name="duration" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+             </xs:sequence>
+           </xs:complexType>
+         </xs:element>
+       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="collection">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A collection of test and test collections
+      </xs:documentation>
+    </xs:annotation>
+     <xs:sequence>
+       <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="collection" type="collection"/>
+         <xs:element name="test" type="test"/>
+       </xs:choice>
+       <xs:element name="report" type="report"/>
+     </xs:sequence>
+     <xs:attribute name="name" type="xs:token" use="required">
+       <xs:annotation>
+         <xs:documentation xml:lang="en">Name of the collection</xs:documentation>
+       </xs:annotation>
+     </xs:attribute>
+     <xs:attribute name="file" type="xs:token" use="required">
+       <xs:annotation>
+         <xs:documentation xml:lang="en">File which defines the collection</xs:documentation>
+       </xs:annotation>
+     </xs:attribute>
+     <xs:attribute name="line" type="xs:token" use="required">
+       <xs:annotation>
+         <xs:documentation xml:lang="en">Line in the file where the collection is defined</xs:documentation>
+       </xs:annotation>
+     </xs:attribute>
+     <xs:attribute name="timestamp" type="xs:dateTime" use="required">
+       <xs:annotation>
+         <xs:documentation xml:lang="en">When the collection was executed in UTC time</xs:documentation>
+       </xs:annotation>
+     </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="test">
+     <xs:sequence>
+       <xs:element name="method" type="method" minOccurs="0" maxOccurs="unbounded"/>
+       <xs:element name="report" type="report"/>
+     </xs:sequence>
+     <xs:attribute name="name" type="xs:token" use="required">
+       <xs:annotation>
+         <xs:documentation xml:lang="en">Name of the collection</xs:documentation>
+       </xs:annotation>
+     </xs:attribute>
+     <xs:attribute name="file" type="xs:token" use="required">
+       <xs:annotation>
+         <xs:documentation xml:lang="en">File which defines the collection</xs:documentation>
+       </xs:annotation>
+     </xs:attribute>
+     <xs:attribute name="line" type="xs:token" use="required">
+       <xs:annotation>
+         <xs:documentation xml:lang="en">Line in the file where the collection is defined</xs:documentation>
+       </xs:annotation>
+     </xs:attribute>
+     <xs:attribute name="timestamp" type="xs:dateTime" use="required">
+       <xs:annotation>
+         <xs:documentation xml:lang="en">When the collection was executed in UTC time</xs:documentation>
+       </xs:annotation>
+     </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="method">
+     <xs:sequence>
+       <xs:choice>
+          <xs:element name="method" type="method"/>
+          <xs:element name="failed" type="event"/>
+          <xs:element name="passed" type="event"/>
+          <xs:element name="skipped" type="event"/>
+          <xs:element name="error" type="event"/>
+          <xs:element name="untested" type="event"/>
+          <xs:element name="note">
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:extension base="event">
+                  <xs:attribute name="type" type="xs:token" use="required">
+                    <xs:annotation>
+                      <xs:documentation xml:lang="en">The type of noted event</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:extension>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+       </xs:choice>
+     </xs:sequence>
+     <xs:attribute name="name" type="xs:token" use="required">
+       <xs:annotation>
+         <xs:documentation xml:lang="en">Name of the method</xs:documentation>
+       </xs:annotation>
+     </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="event">
+    <xs:sequence>
+      <xs:element name="reason" type="pre-string"/>
+      <xs:element name="stack" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="frame" minOccurs="1" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="pre-string">
+                    <xs:attribute name="file" type="xs:token" use="required">
+                      <xs:annotation>
+                        <xs:documentation xml:lang="en">File for the frame content</xs:documentation>
+                      </xs:annotation>
+                      </xs:attribute>
+                      <xs:attribute name="line" type="xs:token" use="required">
+                      <xs:annotation>
+                        <xs:documentation xml:lang="en">Line for the frame content</xs:documentation>
+                      </xs:annotation>
+                    </xs:attribute>
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="meta" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="property" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="pre-string">
+                    <xs:attribute name="name" type="xs:token" use="required"/>
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="report">
+    <xs:sequence>
+       <xs:element name="status" type="Status" minOccurs="0" maxOccurs="1"/>
+       <xs:element name="duration" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+     </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="pre-string">
+    <xs:restriction base="xs:string">
+      <xs:whiteSpace value="preserve"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Status">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="passed"/>
+      <xs:enumeration value="failed"/>
+      <xs:enumeration value="untested"/>
+      <xs:enumeration value="error"/>
+      <xs:enumeration value="skipped"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
