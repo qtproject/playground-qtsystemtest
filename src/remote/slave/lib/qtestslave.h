@@ -81,7 +81,6 @@ T* findTestWidget(const QstMessage& message)
 {
     using namespace QtUiTest;
     T* ret = 0;
-    QstMessage reply;
     QString error;
     QString qp = message["widgetSpecifier"].toString();
     QObject *o;
