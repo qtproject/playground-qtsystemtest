@@ -1,4 +1,4 @@
-TEMPLATE = aux
+TEMPLATE = subdirs
 OTHER_FILES = \
     AllTests.qml \
     InterpreterTests.qml \

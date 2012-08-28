@@ -6,7 +6,7 @@ TARGETPATH = QtSystemTest
 TEMPLATE = lib
 
 CONFIG += no_clean qt
-QT += core
+QT += core network
 
 SOURCES += \
     qstprotocol.cpp \

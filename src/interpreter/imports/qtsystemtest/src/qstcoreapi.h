@@ -61,7 +61,6 @@ signals:
 
 public slots:
     void sleep(int ms);
-    bool connectApplication(const QString &host, int port);
 
   private:
 
