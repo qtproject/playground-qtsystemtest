@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication *app = 0;
 
-    bool guiEnabled = false;
+    bool guiEnabled = true;
     for (int i = 1; i < argc; ++i) {
         if ( qstrcmp(argv[i], "--disable-manual-tests") == 0) {
             guiEnabled = false;
