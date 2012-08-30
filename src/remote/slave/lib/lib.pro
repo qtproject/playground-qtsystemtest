@@ -10,6 +10,8 @@ TEMPLATE = lib
 CONFIG += no_clean qt
 QT += core network widgets declarative quick
 
+mac:CONFIG += absolute_library_soname
+
 INCLUDEPATH += ../../../../include
 LIBS += -L../../../../lib
 LIBS += -lQstProtocol

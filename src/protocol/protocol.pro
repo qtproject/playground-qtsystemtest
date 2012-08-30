@@ -8,6 +8,8 @@ TEMPLATE = lib
 CONFIG += no_clean qt
 QT += core network
 
+mac:CONFIG += absolute_library_soname
+
 SOURCES += \
     qstprotocol.cpp \
     qstconnection.cpp \
